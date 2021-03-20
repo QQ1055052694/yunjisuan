@@ -1,0 +1,107 @@
+import java.util.*;
+
+public class Bank {
+	private static String bankName;
+	private String name;       
+	private String password;   
+	private double balance=0;    
+	public String getName() {
+	return name;
+	} 
+	Scanner reader=new Scanner(System.in);
+	public void setName(String name) {
+		this.name = name;
+		}
+	public String getPassword() {
+		return password;
+		}
+	public void setPassword(String password) {
+		this.password = password;
+		}
+	public static String getBankName() {
+		return bankName;
+				}
+	public static void setBankName(String bankName) {
+		Bank.bankName = bankName;
+		}
+	public static void welcome() {
+		System.out.println("----------欢迎来到"+bankName+"------------");
+		}
+	public void yue() {
+		System.out.println("账户余额为："+balance+"元");
+	}
+	public void kaihu() {
+		System.out.println("请输入姓名：");String Q = reader.nextLine();setName(Q);
+	    System.out.println("请输入密码：");String E = reader.nextLine();setPassword(E);
+	    balance=balance-10;
+	}
+	public void saveMoney(String n) {
+		if(name.equals(n)) {
+			System.out.print("请输入金额：");
+			double i= reader.nextDouble();
+		balance=i+balance;
+		System.out.println(name+"您好，您的帐户已经存入"+i+"元，您的账户余额为"+balance+"元。");
+		}
+		else {
+			System.out.println("对不起，查无此账号！");
+		}
+	}
+	public void getMoney(String a,String q) {
+		if(name.equals(a)) {
+		if(password.equals(q)) {
+			System.out.print("请输入金额：");
+			double b= reader.nextDouble();
+			if(b>balance) {
+				System.out.println("对不起，您的余额不足!");
+			}
+			else {
+				balance=balance-b;
+			System.out.println(name+"您好，您的帐户已经取出"+b+"元，您的账户余额为"+balance+"元。");
+			}
+		}
+		else {
+			System.out.println("对不起，您的密码输入有误，请重新输入！");
+		}
+		}
+		else {
+			System.out.println("对不起，查无此账号！");
+		}
+	}
+	
+	public static void welcomeNext() {
+		System.out.println("-----请携带好随身物品，欢迎下次光临"+bankName+"---------");
+		}
+	}
+  2.import java.util.*;
+
+public class BankTest {
+	public static void main(String[] args) {
+
+		Scanner in=new Scanner(System.in);
+		Bank bank=new Bank();
+		Bank.setBankName("山管银行"); 
+		int i=0;
+		while (true)
+		{
+			if(i==5) {break;}
+			Bank.welcome();
+			System.out.println("               1.开户");
+			System.out.println("               2.存钱");
+			System.out.println("               3.取钱");
+			System.out.println("               4.余额");
+			System.out.println("               5.退出");
+			System.out.print("请输入选项：");
+			i = in.nextInt();in.nextLine();
+		switch(i) {
+		case 1:bank.kaihu(); System.out.println("开户成功，扣除10元。");break;
+		case 2:System.out.print("请输入姓名：");
+		String a = in.nextLine();bank.saveMoney(a);break;
+		case 3:System.out.print("请输入姓名：");String p = in.nextLine();
+			System.out.print("请输入密码：");String o = in.nextLine(); bank.getMoney(p,o);break;
+		case 4:	bank.yue();break;
+		case 5:Bank.welcomeNext();break;
+		default:System.out.println("输入有误!");break;	
+		}	  		
+		}
+	}
+}
